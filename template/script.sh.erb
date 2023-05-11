@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+. /data/software/spack/share/spack/setup-env.sh
+spack load aocc arch=`spack arch`
+spack load openfoam
+
+# Set working directory to home directory
+cd "${HOME}"
+
+#
+# Launch Xfce Window Manager and Panel
+#
+
+(
+  export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
+  export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
+  export XDG_CACHE_HOME="$(mktemp -d)"
+  xfwm4 --compositor=off --sm-client-disable
+  xsetroot -solid "#D3D3D3"
+  xfsettingsd --sm-client-disable
+  xfce4-panel --sm-client-disable
+) &
+
+# Launch ParaView
+set -x
+vglrun -d :1 paraview
