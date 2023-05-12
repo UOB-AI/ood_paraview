@@ -4,6 +4,9 @@
 spack load aocc arch=`spack arch`
 spack load openfoam
 
+export MODULEPATH=/data/software/packages/modulefiles/:$MODULEPATH
+module load ParaView
+
 # Set working directory to home directory
 cd "${HOME}"
 
